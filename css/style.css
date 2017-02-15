@@ -1,0 +1,58 @@
+body{
+	background: #eee;
+	padding-top: 20px;
+}
+
+form, .fromForm{
+	margin-bottom: 10px;
+}
+
+.input-group{
+	margin-bottom: 10px;
+}
+
+nav li a:hover{
+	background: #ddd !important;
+}
+
+
+/*tekst.html*/
+#editor {
+	max-height: 250px;
+	height: 250px;
+	background-color: white;
+	border-collapse: separate; 
+	border: 1px solid rgb(204, 204, 204); 
+	padding: 4px; 
+	box-sizing: content-box; 
+	-webkit-box-shadow: rgba(0, 0, 0, 0.0745098) 0px 1px 1px 0px inset; 
+	box-shadow: rgba(0, 0, 0, 0.0745098) 0px 1px 1px 0px inset;
+	border-top-right-radius: 3px; border-bottom-right-radius: 3px;
+	border-bottom-left-radius: 3px; border-top-left-radius: 3px;
+	overflow-y: scroll;
+	outline: none;
+}
+div[data-role="editor-toolbar"] {
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+div[data-role="editor-toolbar"] .btn {
+	margin-bottom: 6px;
+	margin-top: 6px;
+	float: none;
+}
+div[data-role="editor-toolbar"] .dropdown-menu a {
+	cursor: pointer;
+}
+div[data-role="editor-toolbar"] .span2{
+	width: 137px;
+	display: inline-block;
+	margin-left: 6px;
+	height: 34px;
+}
+div[data-role="editor-toolbar"] .btn-default{
+	margin-top: 4px;
+
+}

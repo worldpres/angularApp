@@ -1,0 +1,24 @@
+<nav class="navbar navbar-default" ng-controller="ctrlMenu">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+	        	<span class="icon-bar"></span>
+	        	<span class="icon-bar"></span>
+	        	<span class="icon-bar"></span>                        
+	      	</button>
+		    <a class="navbar-brand" href="#/" ng-show="userId">Zalogowany: <strong>{{userLogin}}</strong></a>
+		    <a class="navbar-brand" href="#/" ng-hide="userId">Menu</a>
+	    </div>
+	    <div class="collapse navbar-collapse" id="myNavbar">
+		    <ul class="nav navbar-nav">
+		    	<li><a href="#/">Start</a></li>
+		    	<li><a href="#logowanie" ng-hide="userId">Logowanie</a></li>
+		    	<li><a href="#rejestracja" ng-hide="userId">Rejestracja</a></li>
+		    	<li><a href="#edycja" ng-show="userId">Edycja profilu</a></li>
+		    	<li><a href="#lista" ng-show="userId">Lista kont</a></li>
+		    	<li><a href="#powitanie" ng-show="userId">Powitanie</a></li>
+		    	<li><a href="#wylogowanie" ng-show="userId">Wyloguj</a></li>
+		    </ul>
+	    </div>
+	</div>
+</nav>

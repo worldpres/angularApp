@@ -1,0 +1,80 @@
+<div class="row">
+	<div ng-include="'menu.html'"></div>
+</div>
+
+<textarea class="form-control" rows="7" id="comment" ng-model="start.text" style="display: none;"></textarea>
+
+<!-- editor-->
+<div class="row">
+	<div class="col-sm-12">
+		<div class="btn-toolbar text-center" data-role="editor-toolbar" data-target="#editor">
+			<a class="btn btn-default" data-edit="fontSize 5" title="Huge font">
+				<span class="glyphicon glyphicon-zoom-in"></span>
+			</a>
+			<a class="btn btn-default" data-edit="fontSize 3" title="Huge font">
+				<span class="glyphicon glyphicon-search"></span>
+			</a>
+			<a class="btn btn-default" data-edit="fontSize 1" title="Huge font">
+				<span class="glyphicon glyphicon-zoom-out"></span>
+			</a>
+			<a class="btn btn-default" data-edit="bold" title="Bold (Ctrl/Cmd+B)">
+				<span class="glyphicon glyphicon-bold"></span>
+			</a>
+			<a class="btn btn-default" data-edit="italic" title="Italic (Ctrl/Cmd+I)">
+				<span class="glyphicon glyphicon-italic"></span>
+			</a>
+			<a class="btn btn-default" data-edit="strikethrough" title="Strikethrough">
+				<span class="glyphicon glyphicon-minus"></span>
+			</a>
+			<a class="btn btn-default" data-edit="underline" title="Underline (Ctrl/Cmd+U)">
+			<span class="glyphicon glyphicon-text-color"></span>
+			</a>
+			<a class="btn btn-default" data-edit="insertunorderedlist" title="Bullet list">
+				<span class="glyphicon glyphicon-sort-by-attributes"></span>
+			</a>
+			<a class="btn btn-default" data-edit="insertorderedlist" title="Number list">
+				<span class="glyphicon glyphicon-sort-by-order"></span>
+			</a>
+			<a class="btn btn-default" data-edit="outdent" title="Reduce indent (Shift+Tab)">
+				<span class="glyphicon glyphicon-indent-right"></span>
+			</a>
+			<a class="btn btn-default" data-edit="indent" title="Indent (Tab)">
+				<span class="glyphicon glyphicon-indent-left"></span>
+			</a>
+			<a class="btn btn-default" data-edit="justifyleft" title="Align Left (Ctrl/Cmd+L)">
+				<span class="glyphicon glyphicon-align-left"></span>
+			</a>
+			<a class="btn btn-default" data-edit="justifycenter" title="Center (Ctrl/Cmd+E)">
+				<span class="glyphicon glyphicon-align-center"></span>
+			</a>
+			<a class="btn btn-default" data-edit="justifyright" title="Align Right (Ctrl/Cmd+R)">
+				<span class="glyphicon glyphicon-align-right"></span>
+			</a>
+			<a class="btn btn-default" data-edit="justifyfull" title="Justify (Ctrl/Cmd+J)">
+				<span class="glyphicon glyphicon-align-justify"></span>
+			</a>
+			<input class="span2 form-control" placeholder="Podaj adres URL" type="text" data-edit="createLink"/>
+			<button class="btn btn-default" type="button">
+				<span class="glyphicon glyphicon-link"></span> Wstaw link
+			</button>
+			<a class="btn btn-default" data-edit="unlink" title="Remove Hyperlink">
+				<span class="glyphicon glyphicon-remove"></span>
+			</a>
+			<a class="btn btn-default" data-edit="undo" title="Undo (Ctrl/Cmd+Z)">
+				<span class="glyphicon glyphicon-backward"></span>
+			</a>
+			<a class="btn btn-default" data-edit="redo" title="Redo (Ctrl/Cmd+Y)">
+				<span class="glyphicon glyphicon-forward"></span>
+			</a>
+		</div>
+		<div id="editor"></div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-sm-12 text-center">
+		<button type="button" class="btn btn-{{zapiszTekstInfoColor}} col-sm-4 col-xs-12" ng-click="zapiszTekst()">
+		    <span class="glyphicon glyphicon-cloud-upload"></span> Zapisz
+		</button>		
+	</div>
+</div>

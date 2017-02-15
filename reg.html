@@ -1,0 +1,29 @@
+<div class="row">
+	<div ng-include="'menu.html'"></div>
+</div>
+
+<div class="row">
+	<div class="col-sm-12 text-center">
+		<form name="registerForm">
+			<div class="input-group">
+				<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+				<input name="login" type="text" placeholder="Podaj login *" class="form-control" ng-model="login" ng-pattern="regexLogin" ng-focus="showLogin=true" ng-blur="showLogin=false" required>
+			</div>
+			<div class="input-group">
+				<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+				<input name="password" type="password" placeholder="Twoje hasło *" class="form-control" ng-model="password" ng-focus="showPassword=true" ng-blur="showPassword=false" required>
+			</div>
+			<div class="input-group">
+				<span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+				<input name="email" type="email" placeholder="Twój adres email" class="form-control" ng-model="email" ng-focus="showEmail=true" ng-blur="showEmail=false">
+			</div>
+			<button class="btn btn-default" ng-disabled="registerForm.login.$invalid || registerForm.password.$invalid || registerForm.email.$invalid" ng-click="rejestruj()">
+				<span class="glyphicon glyphicon-save"></span> Zarejestruj
+			</button>
+		</form>
+		<div class="well" ng-show="showLogin"><i>Dopuszczalne znaki od a do Z oraz od 0 do 9. Minimum 5 znaków.</i></div>
+		<div class="well" ng-show="showPassword"><i>Nie jest sprawdzana siła hasła, ale pole nie może zostać puste.</i></div>
+		<div class="well" ng-show="showEmail"><i>Pole nie jest wymagane. Jeśli chcesz podać pamiętaj o poprawnym zapisie adresu.</i></div>
+		<div class="alert alert-{{rejestrujInfoColor}}" ng-hide="showEmail || showPassword || showLogin">{{rejestrujInfo}}</div>
+	</div>
+</div>

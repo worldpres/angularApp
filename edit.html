@@ -1,0 +1,57 @@
+<div class="row">
+	<div ng-include="'menu.html'"></div>
+</div>
+
+
+<div class="row">
+	<form name="editForm">
+		<div class="col-sm-6">
+			<div class="input-group">
+				<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+				<input name="login" type="text" placeholder="Podaj login *" class="form-control" ng-model="user.login" ng-pattern="regexLogin" ng-focus="showLogin=true" ng-blur="showLogin=false" ng-disabled="true" required>
+			</div>
+		</div>
+		<div class="col-sm-6">
+			<div class="input-group">
+				<span class="input-group-addon"><i class="glyphicon glyphicon-flag"></i></span>
+				<input name="nation" type="text" placeholder="Narodowość" class="form-control" ng-model="user.nation">
+			</div>
+		</div>
+		<div class="col-sm-6">
+			<div class="input-group">
+				<span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+				<input name="email" type="email" placeholder="Twój adres email" class="form-control" ng-model="user.email" ng-focus="showEmail=true" ng-blur="showEmail=false">
+			</div>
+		</div>
+		<div class="col-sm-6">
+			<div class="input-group">
+				<span class="input-group-addon"><i class="glyphicon glyphicon-gift"></i></span>
+				<input name="birth" type="date" placeholder="Data urodzenia" class="form-control" ng-model="user.birth" ng-value="user.birth | date:'yyyy-MM-dd'" ng-focus="showBirth=true" ng-blur="showBirth=false">
+			</div>
+		</div>
+		<div class="col-sm-6">
+			<div class="input-group">
+				<span class="input-group-addon"><i class="glyphicon glyphicon-phone"></i></span>
+				<input name="phone" type="text" placeholder="Numer telefonu" class="form-control" ng-model="user.phone">
+			</div>
+		</div>
+		<div class="col-sm-6">
+			<div class="input-group">
+				<span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
+				<input name="www" type="text" placeholder="Adres Twojej strony internetowej" class="form-control" ng-model="user.www" ng-pattern="regexWww" ng-focus="showWww=true" ng-blur="showWww=false">
+			</div>
+		</div>
+	</form>
+</div>
+	<div class="col-sm-12 text-center">
+		<button class="btn btn-default fromForm" ng-disabled="editForm.login.$invalid || editForm.email.$invalid || editForm.www.$invalid" ng-click="zapiszZmiany()">
+			<span class="glyphicon glyphicon-cloud-upload"></span> Zapisz zmiany
+		</button>
+		<div class="alert alert-{{zapiszZmianyInfoColor}}" ng-hide="showEmail || showBirth || showLogin || showWww">{{zapiszZmianyInfo}}</div>
+
+		<div class="well" ng-show="showLogin"><i>Dopuszczalne znaki od a do Z oraz od 0 do 9. Minimum 5 znaków.</i></div>
+		<div class="well" ng-show="showEmail"><i>Pole nie jest wymagane. Jeśli chcesz podać pamiętaj o poprawnym zapisie adresu.</i></div>
+		<div class="well" ng-show="showBirth"><i>Data urodzenia.</i></div>
+		<div class="well" ng-show="showWww"><i>Adres strony powinien zaczynać się od http lub https.</i></div>		
+	</div>
+</div>
