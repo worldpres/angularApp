@@ -9,9 +9,6 @@ try{
 	$connect = new PDO('mysql:host='.$host.';dbname='.$base.';charset=utf8', $user, $pass);
 	
 
-
-
-
 	/***GET*** Wyszukuje w tabeli po kryteriach
 	$http.get('api.php/ng_text/id/1').success(function(response) {
 	    console.log(response);
@@ -47,9 +44,6 @@ try{
 	}
 
 
-
-
-
 	/***POST*** Dodaje do tabeli rekord
 	var config={ 
 		login   : $scope.login, 
@@ -73,10 +67,6 @@ try{
 	}
 
 
-
-
-
-
 	/***PUT*** Aktualizacja tabel
     var config = {
         user: $scope.user
@@ -86,16 +76,51 @@ try{
     });
 	*********/
 	if($method=="PUT"){
-		foreach ($input as $key => $value) {
-			$sets .= "`".$key."` = '".$value."',";
-			//$values .= ($key=="password") ? "'".md5($value)."'," : "'".$value."'," ;
-		}
-		$id = $input['id'];
-		$sets = substr($sets, 0, -1);
 
-	$sql = "update `$table` set $sets where `id` = $id"; 
+	$return2 = array();
+	foreach ($input as $input2) {
+			$sets = "";
+			foreach ($input2 as $key => $value) {
+				$sets .= "`".$key."` = '".$value."',";
+			}
+			$id = $input2['id'];
+			$sets = substr($sets, 0, -1);
+
+		$sql = "update `$table` set $sets where `id` = $id"; 
+		$return = $connect->exec($sql);
+		array_push($return2, $return);
+		}
+	}
+
+
+	/***DELETE*** Kasuje z tabeli
+	$http.get('api.php/ng_text/id/1').success(function(response) {
+	    console.log(response);
+	});
+	*********/
+	if($method=="DELETE"){
+		$requests = array();
+		foreach ($request as $key => $value) {
+			 if($key%2==0) { $requests[$value] = $request[$key+1]; }
+		}
+		$where = "";
+		if(count($requests)){
+			$where = "WHERE ";
+			foreach ($requests as $key => $value) {
+				if($key == "password"){ $value = md5($value); }
+				$where .= $key."='".$value."' AND ";
+			}
+			$where = substr($where, 0, strripos($where, ' AND '));
+		}
+
+	$sql = "delete from `$table` $where";
 	$return = $connect->exec($sql);
 	}
+
+
+
+
+
 
 	echo $return;
 	$connect = null;

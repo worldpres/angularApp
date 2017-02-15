@@ -121,7 +121,7 @@ app.controller('ctrlEdit', [ '$http', '$window', '$scope', function($http, $wind
     });
 
     $scope.zapiszZmiany = function(){
-        var config = $scope.user;
+        var config = [ $scope.user ];
         $http.put('api.php/ng_users', config).success(function(response) {
             if(response){
                 $scope.zapiszZmianyInfo = "Aktualizacja powiodła się.";
@@ -146,7 +146,8 @@ app.controller('ctrlText', [ '$http', '$window', '$scope', '$location', function
     $scope.zapiszTekst = function(){
         $scope.start.id = 1;
         $scope.start.text = $('#editor').html();
-        $http.put('api.php/ng_text', $scope.start).success(function(response) {
+        var config = [$scope.start];
+        $http.put('api.php/ng_text', config).success(function(response) {
             if(response){
                 $scope.zapiszTekstInfoColor = "success";
             }else{
@@ -167,79 +168,53 @@ app.controller('notFound', [ '$interval', '$scope', '$location', function($inter
     }, 1000);
 }]);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /*ctrlList*/
 app.controller('ctrlList', [ '$http', '$window', '$scope', '$location', function($http, $window, $scope, $location){
     if ($window.localStorage.userLogin!='admin') { $location.path('/'); }
-    $scope.downloadColor = "default";
-    $scope.uploadColor = "default";
 
     $http.get('api.php/ng_users').success(function(response) {
         $scope.listaKont = response;
+        for (o in $scope.listaKont) { $scope.listaKont[o].birth = new Date($scope.listaKont[o].birth); }
     });
+    $scope.downloadColor = "default";
+    $scope.uploadColor = "default";
+
+    $scope.headerObj = { "login":"Login", "email":"Email", "phone":"Telefon", "nation":"Kraj", "birth":"Data urodzenia", "www":"WWW" };
+    $scope.sortDir = false;
+    $scope.sortVal = 'login';
+    $scope.setSort = function(k){
+        if ($scope.sortVal === k) $scope.sortDir = !$scope.sortDir;
+        $scope.sortVal = k;
+    };
 
     $scope.download = function(){
         $http.get('api.php/ng_users').success(function(response) {
             $scope.listaKont = response;
+            for (o in $scope.listaKont) { $scope.listaKont[o].birth = new Date($scope.listaKont[o].birth); }
             $scope.downloadColor = "success";
             $scope.uploadColor = "default";
         });
     }
 
     $scope.upload = function(){
-        console.log("up");
         $scope.downloadColor = "default";
-        $scope.uploadColor = "success";
-
-        var config = $scope.user;
+        var config = $scope.listaKont;
         $http.put('api.php/ng_users', config).success(function(response) {
             if(response){
-                $scope.zapiszZmianyInfo = "Aktualizacja powiodła się.";
-                $scope.zapiszZmianyInfoColor = "success";
+                $scope.uploadColor = "success";
             }else{
-                $scope.zapiszZmianyInfo = "Aktualizacja nie powiodła się.";
-                $scope.zapiszZmianyInfoColor = "warning";
+                $scope.uploadColor = "warning";
             }
         });
+    }
+
+    $scope.del = function(id){
+        var sure = confirm("Usunąc usera o id: "+id+" ?");
+        if (sure) {
+            $http.delete('api.php/ng_users/id/'+id+'/').success(function(response) {
+                $scope.download();
+            });           
+        }
     }
 
 }]);
