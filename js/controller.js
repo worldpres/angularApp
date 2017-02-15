@@ -12,7 +12,7 @@ app.config(function($routeProvider) {
         controller  : "ctrlLog"
     })
     .when("/wylogowanie", {
-        template : "<div class='col-sm-12 text-center alert alert-info'><strong>Wylogowano!</strong> Zostaniesz przekierowany za {{timeOff}}s.</div>",
+        template : "<div class='col-sm-12 text-center alert alert-success'><strong>Wylogowano!</strong> Zostaniesz przekierowany za {{timeOff}}s.</div>",
         controller  : "ctrlOff"
     })
     .when("/rejestracja", {
@@ -64,7 +64,7 @@ app.controller('ctrlLog', [ '$http', '$window', '$scope', '$location', function(
     $scope.zaloguj = function(){
         $http.get('api.php/ng_users/login/'+$scope.login+'/password/'+$scope.password).success(function(response) {
             response = response[0];
-            if(response.id){
+            if(response !== undefined && response !== null){
                 $window.localStorage.userLogin=response.login;
                 $window.localStorage.userId=response.id;
                 $location.path('/'); 
@@ -110,7 +110,7 @@ app.controller('ctrlReg', [ '$http', '$window', '$scope', '$location', function(
 }]);
 
 /*ctrlEdit*/
-app.controller('ctrlEdit', [ '$http', '$window', '$scope', function($http, $window, $scope){
+app.controller('ctrlEdit', [ '$timeout', '$http', '$window', '$scope', function($timeout, $http, $window, $scope){
     $scope.regexLogin = /^[a-zA-Z0-9]{5,}$/;
     $scope.regexWww = /^(http|https):\/\/[a-zA-Z0-9-.]+[\.]{1}[a-zA-Z]{2,4}$/;
     $scope.userId = $window.localStorage.userId;
@@ -124,24 +124,23 @@ app.controller('ctrlEdit', [ '$http', '$window', '$scope', function($http, $wind
         var config = [ $scope.user ];
         $http.put('api.php/ng_users', config).success(function(response) {
             if(response){
-                $scope.zapiszZmianyInfo = "Aktualizacja powiodła się.";
                 $scope.zapiszZmianyInfoColor = "success";
             }else{
-                $scope.zapiszZmianyInfo = "Aktualizacja nie powiodła się.";
                 $scope.zapiszZmianyInfoColor = "warning";
             }
         });
+        $timeout(function(){ $scope.zapiszZmianyInfoColor = "default"; }, 3000);
     }
+    $scope.zapiszZmianyInfoColor = "default";
 }]);
 
 /*ctrlText*/
-app.controller('ctrlText', [ '$http', '$window', '$scope', '$location', function($http, $window, $scope, $location){
+app.controller('ctrlText', [ '$timeout', '$http', '$window', '$scope', '$location', function($timeout, $http, $window, $scope, $location){
     if ($window.localStorage.userLogin!='admin') { $location.path('/'); }
     $http.get('api.php/ng_text/id/1').success(function(response) {
         $scope.start = response[0];
         $('#editor').html(response[0].text);
     });
-    $scope.zapiszTekstInfoColor = "default";
 
     $scope.zapiszTekst = function(){
         $scope.start.id = 1;
@@ -154,8 +153,10 @@ app.controller('ctrlText', [ '$http', '$window', '$scope', '$location', function
                 $scope.zapiszTekstInfoColor = "warning";
             }
         });
+        $timeout(function(){ $scope.zapiszTekstInfoColor = "default"; }, 3000);
     }
-    //editor   //$('#editor').cleanHtml();
+    $scope.zapiszTekstInfoColor = "default";
+    //editor   /* $('#editor').cleanHtml(); */
     $('#editor').wysiwyg(); 
 }]);
 
@@ -169,15 +170,13 @@ app.controller('notFound', [ '$interval', '$scope', '$location', function($inter
 }]);
 
 /*ctrlList*/
-app.controller('ctrlList', [ '$http', '$window', '$scope', '$location', function($http, $window, $scope, $location){
+app.controller('ctrlList', [ '$timeout', '$http', '$window', '$scope', '$location', function($timeout, $http, $window, $scope, $location){
     if ($window.localStorage.userLogin!='admin') { $location.path('/'); }
 
     $http.get('api.php/ng_users').success(function(response) {
         $scope.listaKont = response;
         for (o in $scope.listaKont) { $scope.listaKont[o].birth = new Date($scope.listaKont[o].birth); }
     });
-    $scope.downloadColor = "default";
-    $scope.uploadColor = "default";
 
     $scope.headerObj = { "login":"Login", "email":"Email", "phone":"Telefon", "nation":"Kraj", "birth":"Data urodzenia", "www":"WWW" };
     $scope.sortDir = false;
@@ -189,24 +188,23 @@ app.controller('ctrlList', [ '$http', '$window', '$scope', '$location', function
 
     $scope.download = function(){
         $http.get('api.php/ng_users').success(function(response) {
+            if(response){ $scope.downloadColor = "success"; }else{ $scope.downloadColor = "warning"; }
             $scope.listaKont = response;
             for (o in $scope.listaKont) { $scope.listaKont[o].birth = new Date($scope.listaKont[o].birth); }
-            $scope.downloadColor = "success";
-            $scope.uploadColor = "default";
         });
+        $timeout(function(){ $scope.downloadColor = "default"; }, 3000);
     }
-
+    $scope.downloadColor = "default";
+    
     $scope.upload = function(){
         $scope.downloadColor = "default";
         var config = $scope.listaKont;
         $http.put('api.php/ng_users', config).success(function(response) {
-            if(response){
-                $scope.uploadColor = "success";
-            }else{
-                $scope.uploadColor = "warning";
-            }
+            if(response){ $scope.uploadColor = "success"; }else{ $scope.uploadColor = "warning"; }
         });
+        $timeout(function(){ $scope.uploadColor = "default"; }, 3000);
     }
+    $scope.uploadColor = "default";
 
     $scope.del = function(id){
         var sure = confirm("Usunąc usera o id: "+id+" ?");

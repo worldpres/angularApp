@@ -14,7 +14,9 @@ form, .fromForm{
 nav li a:hover{
 	background: #ddd !important;
 }
-
+#up, #down{
+	margin-bottom: 10px;
+}
 
 /*tekst.html*/
 #editor {

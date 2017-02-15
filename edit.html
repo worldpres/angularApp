@@ -44,10 +44,9 @@
 	</form>
 </div>
 	<div class="col-sm-12 text-center">
-		<button class="btn btn-default fromForm" ng-disabled="editForm.login.$invalid || editForm.email.$invalid || editForm.www.$invalid" ng-click="zapiszZmiany()">
+		<button class="btn btn-{{zapiszZmianyInfoColor}} fromForm" ng-disabled="editForm.login.$invalid || editForm.email.$invalid || editForm.www.$invalid" ng-click="zapiszZmiany()">
 			<span class="glyphicon glyphicon-cloud-upload"></span> Zapisz zmiany
 		</button>
-		<div class="alert alert-{{zapiszZmianyInfoColor}}" ng-hide="showEmail || showBirth || showLogin || showWww">{{zapiszZmianyInfo}}</div>
 
 		<div class="well" ng-show="showLogin"><i>Dopuszczalne znaki od a do Z oraz od 0 do 9. Minimum 5 znaków.</i></div>
 		<div class="well" ng-show="showEmail"><i>Pole nie jest wymagane. Jeśli chcesz podać pamiętaj o poprawnym zapisie adresu.</i></div>

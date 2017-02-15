@@ -94,7 +94,7 @@ try{
 
 
 	/***DELETE*** Kasuje z tabeli
-	$http.get('api.php/ng_text/id/1').success(function(response) {
+	$http.delete('api.php/ng_users/id/'+id+'/').success(function(response) {
 	    console.log(response);
 	});
 	*********/
